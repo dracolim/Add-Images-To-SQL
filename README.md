@@ -13,7 +13,7 @@ __________________________________________________
 - https://codebeautify.org/image-to-base64-converter
 
 [in app.py]
-1. In create_skill function, include "image" into the data.keys()
+1. In `create_skill` function, include "image" into the data.keys()
 <img width="435" alt="Screenshot 2022-10-15 at 11 23 30 PM" src="https://user-images.githubusercontent.com/85498185/195994463-01fc30dc-f27d-47ef-b101-0026f921154f.png">
 
 [in skills.html]
