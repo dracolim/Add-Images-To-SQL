@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width">
+
+    <title>View Skills Records</title>
+
+    <link rel="stylesheet" href="">
+
+    <!-- Bootstrap libraries -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap 5 CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous">
+    </script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+        integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css" />
+
+    <!--Replace with your tailwind.css once created-->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" rel="stylesheet" />
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- Flowbite -->
+    <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.3/dist/flowbite.min.css" />
+    <style>
+        .gradient {
+            background: linear-gradient(90deg, #d53369 0%, #daae51 100%);
+        }
+
+        .backdrop {
+            background-color: rgba(0,0,0,0.4);
+        }
+    </style>
+</head>
+
+
+<body class="leading-normal tracking-normal text-white" style="font-family: 'Source Sans Pro', sans-serif;">
+    <div id="main-container">
+        <ul class="nav justify-content-end">
+            <li class="nav-item">
+                <a class="nav-link active" href="#">Active</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled" href="#">Disabled</a>
+            </li>
+        </ul>
+
+        <!-- NAV BAR -->
+        <nav id="header" class="fixed w-full z-30 top-0 text-white gradient">
+            <div class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 py-2">
+                <div class="pl-1 flex items-end">
+                    <!-- SMALLER SCREEN -->
+                    <div class="h-20 block lg:hidden pr-4 text-black">
+                        <button id="nav-toggle"
+                            class="flex items-center p-1 text-pink-800 hover:text-gray-900 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
+                            <svg class="fill-current h-6 w-6" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <title>Menu</title>
+                                <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
+                            </svg>
+                        </button>
+                    </div>
+
+                    <!-- LARGER SCREEN -->
+                    <div class="h-20 w-full flex-grow lg:flex lg:items-center lg:w-auto hidden mt-2 lg:mt-0 lg:bg-transparent text-black p-4 lg:p-0 z-20"
+                        id="nav-content">
+                        <!-- <img src='../logo.png' width="135" height="135"> -->
+                        <ul class="list-reset lg:flex justify-end flex-1 items-center">
+                            <li class="mr-3">
+                                <a class="inline-block text-white no-underline hover:text-gray-800 hover:text-underline py-2 px-4"
+                                    href="#" v-on:onclick="goPage(this)" id="Homelink">Home</a>
+                            </li>
+                            <li class="mr-3">
+                                <a class="inline-block text-white no-underline hover:text-gray-800 hover:text-underline py-2 px-4"
+                                    href="../htdocs/hr_skills.html" v-on:onclick="goPage(this)" id="Skillslink">Skills</a>
+                            </li>
+                            <!-- <li class="mr-3">
+                                <a class="inline-block text-white no-underline hover:text-gray-800 hover:text-underline py-2 px-4"
+                                    href="../htdocs/hr_roles.html" v-on:onclick="goPage(this)" id="Roleslink">Roles</a>
+                            </li> -->
+                            <li class="mr-3">
+                                <a class="inline-block text-white no-underline hover:text-gray-800 hover:text-underline py-2 px-4 hidden"
+                                    href="#" v-on:onclick="goPage(this)" id="Courseslink">Courses</a>
+                            </li>
+                        </ul>
+                        <button id="navAction"
+                            class="hidden h-10 mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full p-1 px-5 shadow opacity-75 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
+                            Action
+                        </button>
+                    </div>
+
+                </div>
+                <hr class="border-b border-gray-100 opacity-25 my-0 py-0" />
+        </nav>
+
+        <!-- DISPLAY SKILLS -->
+        <section class="container bg-white py-8 pt-20" id="Skills">
+            <div class="container mx-auto flex flex-wrap pt-4">
+                <h2 class="w-full mt-12 text-5xl font-bold leading-tight text-center text-gray-800 pt-4">
+                    Skills
+                </h2>
+
+                <div class="w-full mb-4">
+                    <div class="h-4 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t font-underline bg-slate-400">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 bg-orange-200 " id="rolesContainer">
+                    <div class="w-full p-6 flex flex-col flex-grow flex-shrink" v-for="skill in skills">
+                        <!-- FOR LOOP -->
+
+                        <!-- EACH SKILL -->
+                        <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow"
+                            style='padding-top: 20px;'>
+                            <a href="#" class="flex flex-wrap no-underline hover:no-underline"
+                                v-on:click="addIDs(this)">
+                                <p class="mx-auto pb-8 flex justify-center"><img
+                                        v-bind:src="`data:image/png;base64,${skill.image}`" />
+                                </p> <!-- INSERT IMAGE -->
+                                <p class="w-full font-bold text-xl text-gray-800 px-6"
+                                    style='margin-bottom: 10px; font-size: 25px;'>
+                                    {{skill.name}}
+                                </p>
+                                <p class="text-gray-800 text-base px-6 mb-5">
+                                    {{skill.description}}
+                                </p>
+                            </a>
+                        </div>
+
+                        <div class="mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-6"
+                            style="text-align: center;">
+                            <button type="button" v-on:click="openUpdateModal(skill.id)"
+                                class="text-white bg-gradient-to-br from-red-500 to-yellow-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">
+                                Update</button>
+                            
+                            <!-- Delete button -->
+                            <button v-on:click="deleteSkill(skill.id)" type="button"
+                                class="text-white bg-gradient-to-br from-red-500 to-yellow-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">
+                                Delete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <!-- <p><label id="error" class="text-danger">{{ error }}</label></p> -->
+                <button type="button"
+                    class="text-white bg-gradient-to-br from-red-500 to-yellow-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none 
+            focus:ring-pink-200 dark:focus:ring-pink-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center my-4 mx-5"
+                    data-modal-toggle="authentication-modal" style='float: right;'>Create Skill</button>
+            </div>
+
+
+            <!-- CREATE SKILL POP UP -->
+            <div id="authentication-modal" tabindex="-1" aria-hidden="true"
+                class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full">
+                <div class="relative p-4 w-full max-w-md h-full md:h-auto">
+                    <!-- Modal content -->
+                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                        <button type="button"
+                            class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
+                            data-modal-toggle="authentication-modal">
+                            <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                            <span class="sr-only">Close modal</span>
+                        </button>
+                        <div class="py-6 px-6 lg:px-8">
+                            <h3 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Create New Skill</h3>
+                            <form class="space-y-6" action="#">
+                                
+                                <div v-if = "!checkCreateNameValid() && !checkCreateNameTooLong()">
+                                    <label for="skill_name"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Skill
+                                        Name</label>
+                                    <input type="text" name="skill_name" id="skill_name" v-model="create_skill_name"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                        required>
+                                </div>
+
+                                <div v-else-if="checkCreateNameValid()">
+                                    <label for="skill_name"
+                                        class="block mb-2 text-sm font-medium text-red-600 dark:text-red-500">Skill
+                                        Name</label>
+                                    <input type="text" name="skill_name" id="skill_name" v-model="create_skill_name"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                        required>
+                                    <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium"></span> Please do not enter any special characters or numbers!</p>
+                                </div>
+
+                                <div v-else-if="checkCreateNameTooLong()">
+                                    <label for="skill_name"
+                                        class="block mb-2 text-sm font-medium text-red-600 dark:text-red-500">Skill
+                                        Name</label>
+                                    <input type="text" name="skill_name" id="skill_name" v-model="create_skill_name"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                        required>
+                                    <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium"></span> Input length should be lesser than 100 characters!</p>
+                                </div>
+
+                                <div>
+                                    <label for="skill_description"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Skill
+                                        Description</label>
+                                    <textarea name="skill_description" id="skill_description" v-model="create_skill_des"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                        required>
+                                    </textarea>
+                                </div>
+
+                                <div>
+                                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                                        for="file_input">Upload Skill Image</label>
+                                    <input
+                                        class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                                        aria-describedby="file_input_help" id="file_input" type="file"
+                                        v-on:change="onChangeFile">
+                                    <p v-if = "" class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">SVG,
+                                        PNG, JPG or GIF (MAX. 800x400px).</p>
+                                </div>
+                                <!-- Error message button to try -->
+                                
+                                <div style="text-align: center;">
+                                    <button type="submit" v-on:click="createSkill(this)"
+                                        class="text-white bg-gradient-to-br from-red-500 to-yellow-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">
+                                        Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- UPDATE POP UP -->
+            <div v-if="updateID != null" id="authentication-modal" tabindex="-1" aria-hidden="true"
+                class="backdrop overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full grid justify-center items-center">
+                <div class="relative p-4 h-full md:h-auto">
+                    <!-- Modal content -->
+                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700 w-96">
+
+                        <button type="button" v-on:click="closeUpdateModal"
+                            class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
+                            data-modal-toggle="authentication-modal">
+                            <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                            <span class="sr-only">Close modal</span>
+                        </button>
+
+                        <div class="py-6 px-6 lg:px-8">
+                            <h3 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Update Existing Skill</h3>
+                            <!-- OLD -->
+                            <p class="mx-auto flex justify-center"><img
+                                v-bind:src="`data:image/png;base64,${varImage}`" />
+                            </p> 
+                            </br>
+
+                            <form class="space-y-6" action="#">
+                                <div v-if="!checkUpdateNameValid() && !checkUpdateNameTooLong()">
+                                    <label for="skill_name" 
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Enter Updated Skill
+                                        Name</label>
+                                    <input type="text" name="skill_name" id="skill_name" v-model="varName"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                        required>
+                                </div>
+
+                                <div v-else-if="checkUpdateNameValid()">
+                                    <label for="skill_name" class="block mb-2 text-sm font-medium text-red-700 dark:text-red-500">Enter Updated Skill
+                                        Name</label>
+                                    <input type="text" name="skill_name" id="skill_name" v-model="varName"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                    required>
+                                    <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium"></span> Please do not enter any special characters and numbers! </p>
+                                </div>
+
+                                <div v-else-if="checkUpdateNameTooLong()">
+                                    <label for="skill_name" class="block mb-2 text-sm font-medium text-red-700 dark:text-red-500">Enter Updated Skill
+                                        Name</label>
+                                    <input type="text" name="skill_name" id="skill_name" v-model="varName"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                    required>
+                                    <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium"></span> Input length should be lesser than 100 characters!</p>
+                                </div>
+
+                                <div>
+                                    <label for="skill_description"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Enter Updated Skill
+                                        Description</label>
+                                    <textarea name="skill_description" id="skill_description" v-model="varDesc"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                        required>
+                                    </textarea>
+                                </div>
+                                <div style="text-align: center;">
+                                    <button type="submit" :disabled="checkUpdateNameValid()|| checkUpdateNameTooLong()" v-on:click="updateSkill(updateID)" 
+                                        class="text-white bg-gradient-to-br from-red-500 to-yellow-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">
+                                        Submit</button>
+                                    <!-- <div class="text-sm font-medium text-gray-500 dark:text-gray-300">
+                                    Not registered? <a href="#"
+                                        class="text-blue-700 hover:underline dark:text-blue-500">Create account</a>
+                                </div> -->
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Success POP UP -->
+            <div v-if="success_create != ''" id="authentication-modal" tabindex="-1" aria-hidden="true"
+                class="backdrop overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full grid justify-center items-center">
+                <div class="relative p-4 h-full md:h-auto">
+                    <!-- Modal content -->
+                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700 w-96">
+
+                        <button type="button" v-on:click="closeUpdateModal"
+                            class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
+                            data-modal-toggle="authentication-modal">
+                            <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                            <span class="sr-only">Close modal</span>
+                        </button>
+
+                        <div class="py-6 px-6 lg:px-8">
+                            <h3>{{success_create}}</h3> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+    </div>
+
+    <!--- JAVASCRIPT -->
+    <script>
+        const specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~1234567890]/;
+        const vm = new Vue({
+            el: '#main-container',
+            data: {
+                roles: [],
+                currPage: "Home",
+                activeClass: "inline-block py-2 px-4 text-black font-bold no-underline",
+                inActiveClass: "inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4",
+                skills: [],
+                create_skill_name: "",
+                create_skill_des: "",
+                image: "",
+                error: "",
+                varName: "",
+                varDesc: "",
+                varImg: "",
+                updateID: null,
+                success_create: "",
+            },
+            mounted: async function () {
+                this.getSkills()
+            },
+            methods: {
+                goPage: function (pg) {
+                    //console.log(pg)
+                    //console.log(pg.innerHTML)
+                    document.getElementById(currPage + "link").classList.remove("font-bold")
+
+                    document.getElementById(pg.innerHTML + "link").classList.add("font-bold")
+
+                    console.log("ads", currPage.substring(-4, -1))
+                    document.getElementById(currPage).classList.add("hidden")
+                    document.getElementById(pg.innerHTML).classList.remove("hidden")
+
+                    currPage = pg.innerHTML
+                },
+                getSkills: async function getSkills() {
+                    // var axios = require('axios');
+                    var config = {
+                        method: 'get',
+                        url: 'http://localhost:5010/skills',
+                        headers: {}
+                    };
+                    skills = []
+                    await axios(config) //Assynchronous 
+                        .then(function (response) {
+                            //console.log(JSON.stringify(response.data.data));
+                            skills = response.data.data
+                            //console.log(skills);
+                            coursesDivs = ""
+                            this.skills = skills
+                            // coursesContainer.innerHTML = coursesDivs
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        })
+                    this.skills = skills
+                },
+                deleteSkill: async function (id) {
+                    //console.log("delete: ", id)
+
+                    // var axios = require('axios');
+                    var data = JSON.stringify({
+                        "id": id
+                    });
+
+                    var config = {
+                        method: 'delete',
+                        url: 'http://localhost:5010/skill',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    };
+                    await axios(config)
+                        .then(async function (response) {
+                            //console.log(JSON.stringify(response.data));
+                            //   await getSkills();
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
+                    this.getSkills()
+                },
+
+                addIDs: function (a_tag) {
+                    a_tags = document.getElementsByTagName('a');
+                },
+                createSkill: function (item) {
+                    if(this.checkCreateNameValid() == true){
+                        return 
+                    }
+                    var new_skill_name = this.create_skill_name;
+                    var new_skill_des = this.create_skill_des;
+                    var new_skill_img = this.image;
+
+                    var url = 'http://localhost:5010/skills'
+                    axios.post(url, {
+                            name: new_skill_name,
+                            description: new_skill_des,
+                            image: new_skill_img.split(',')[1]
+                        })
+                        .then(response => {
+                            console.log(response.data)
+                            this.success_create = "Successfully created a skill!" 
+                        })
+                        .catch(error => {
+                            this.error = error.response.data.message
+                        });
+                },
+                checkCreateNameValid(){
+                    // If varName consist illegal char = true
+                    if(specialChars.test(this.create_skill_name) | /\d/.test(this.create_skill_name)){
+                        // console.log("Invalid input value for skill ID, please do not use any special characters!")
+                        return true;
+                    }
+                },
+                checkCreateNameTooLong(){
+                    // If varName consist illegal char = true
+                    if((this.create_skill_name).length > 100){
+                        // console.log("Invalid length should not exceed 100!")
+                        return true;
+                    }
+                },
+                openUpdateModal(skillID) {
+                    this.updateID = skillID;
+                    console.log(this.skills)
+                    for (i in this.skills) {
+                            if (this.skills[i].id == skillID) {
+                                this.varName = this.skills[i].name;
+                                this.varDesc = this.skills[i].description;
+                                this.varImage = this.skills[i].image 
+                            }
+                        }
+                },
+                closeUpdateModal(){
+                    this.updateID = null;
+                },
+                checkUpdateNameValid(){
+                    // If varName consist illegal char = true
+                    if(specialChars.test(this.varName)){
+                        // console.log("Invalid input value for skill ID, please do not use any special characters!")
+                        return true;
+                    }
+                },
+                checkUpdateNameTooLong(){
+                    // If varName consist illegal char = true
+                    if((this.varName).length > 100){
+                        // console.log("Invalid length should not exceed 100!")
+                        return true;
+                    }
+                },
+                updateSkill: function (skillID) {
+                    if(this.checkUpdateNameValid() == true){
+                        return
+                    }
+                    console.log(this.image)
+                    skillsURL = "http://localhost:5010/skills/" + skillID
+                    console.log(skillsURL)
+                    fetch(skillsURL, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            'name': this.varName,
+                            'description': this.varDesc,
+                            // 'image': this.Image,
+                        })
+                    }).then(response => {
+                        console.log(skillID)
+                        for (i in this.skills) {
+                            if (this.skills[i].id == skillID) {
+                                this.skills[i].name = this.varName
+                                this.skills[i].description = this.varDesc
+                                // this.skills[i].image = this.Image
+                                }
+                            }
+                        console.log(this.skills)
+                        // this.varObj
+                        this.varName = null
+                        this.varDesc = null
+                        this.varImage = null
+                        return response.json()
+                    }).then(data =>
+                        // this is the data we get after putting our data,
+                        console.log(data)
+                    )
+                    this.closeUpdateModal();
+                },
+                onChangeFile: function (e) {
+                    var files = e.target.files || e.dataTransfer.files;
+                    if (!files.length)
+                        return;
+                    this.createImage(files[0]);
+                },
+                createImage(file) {
+                    var image = new Image();
+                    var reader = new FileReader();
+
+                    reader.onload = (e) => {
+                        this.image = e.target.result;
+                        console.log(this.image)
+                    };
+                    reader.readAsDataURL(file);
+                },
+                removeImage: function (e) {
+                    this.image = '';
+                },
+            }
+        });
+    </script>
+    <style>
+        button:disabled {
+        background: hwb(0 0% 100% / 0.493);
+        }
+    </style>
+    <!-- flowbite -->
+    <script src="https://unpkg.com/flowbite@1.5.3/dist/flowbite.js"></script>
+</body>
+
+</html>
