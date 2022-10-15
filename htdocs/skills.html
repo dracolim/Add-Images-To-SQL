@@ -230,6 +230,7 @@
                                     </textarea>
                                 </div>
 
+                                <!-- Add Image function -->
                                 <div>
                                     <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                                         for="file_input">Upload Skill Image</label>
@@ -566,7 +567,7 @@
 
                     reader.onload = (e) => {
                         this.image = e.target.result;
-                        console.log(this.image)
+                        //console.log(this.image)
                     };
                     reader.readAsDataURL(file);
                 },
