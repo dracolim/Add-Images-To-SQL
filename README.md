@@ -1,6 +1,6 @@
 # Add Images to SQL Database
 **Method used: <em>Base64</em> conversion**
-https://img.shields.io/badge/Build%20In-HTML-brightgreen
+![example workflow](https://img.shields.io/badge/Build%20In-HTML-brightgreen)
 __________________________________________________
 
 [in skills.sql]
