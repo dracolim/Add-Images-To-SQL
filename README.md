@@ -2,7 +2,6 @@
 **Method used: <em>Base64</em> conversion**
 __________________________________________________
 
-Steps to Add images into SQL DB:
 [in skills.sql]
 1. Create a `image` column under the skill table in the sql file 
 2. Insert values into skills table including image with Base64 
