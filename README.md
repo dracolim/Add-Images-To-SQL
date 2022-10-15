@@ -1,5 +1,5 @@
 # Add-Images-To-SQL
-**Method used: Base64 conversion**
+**Method used: <em>Base64</em> conversion**
 
 Steps to Add images into SQL DB:
 [in skills.sql]
