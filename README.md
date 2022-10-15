@@ -1,5 +1,6 @@
 # Add Images to SQL Database
 **Method used: <em>Base64</em> conversion**
+<br>
 ![example workflow](https://img.shields.io/badge/Build%20In-HTML-brightgreen)
 __________________________________________________
 
