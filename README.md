@@ -8,7 +8,7 @@ __________________________________________________
 
 **[in skills.sql]**
 1. Create an `image` column under the skill table in the sql file 
-2. Insert values into skills table including image with Base64 
+2. Insert values into skills table including image with Base64 format
 - To get Base64 images, you can use any available conversion website online to convert images to Base64
 - https://codebeautify.org/image-to-base64-converter
 
